@@ -29,9 +29,33 @@ bool _PlaneReflectEnable1(CMwStack &in stack, CMwNod@ nod) {
         trace('_PlaneReflectEnable1 -- "fixing" parameters');
         AllowPlaneReflectEnableCall = true;
         @LastMenuSceneMgr = cast<CGameMenuSceneScriptManager>(nod);
-        LastMenuSceneMgr.PlaneReflectEnable1(sceneId, Setting_BgReflectionOpacity, q1, q2, q3, q4, Setting_BgReflectionAngle);
-        return false;
+        // LastMenuSceneMgr.PlaneReflectEnable1(sceneId, Setting_BgReflectionOpacity, q1, q2, q3, q4, Setting_BgReflectionAngle);
+        startnew(CoroutineFuncUserdata(PRE1Coro), PRE1Args(sceneId, {q1, q2, q3, q4}));
+        return true;
     }
+}
+
+class PRE1Args {
+    MwId sceneId;
+    CGameManialinkQuad@[] quads;
+    PRE1Args(MwId s, CGameManialinkQuad@[] qs) {
+        sceneId = s;
+        quads = qs;
+    }
+}
+
+void PRE1Coro(ref@ _args) {
+    auto args = cast<PRE1Args>(_args);
+    if (args is null) {
+        warn("PRE1Coro got bad args (could not cast)");
+        return;
+    }
+    auto qs = args.quads;
+    if (LastMenuSceneMgr is null) {
+        warn('PRE1Coro: LastMenuSceneMgr is null');
+        return;
+    }
+    LastMenuSceneMgr.PlaneReflectEnable1(args.sceneId, Setting_BgReflectionOpacity, qs[0], qs[1], qs[2], qs[3], Setting_BgReflectionAngle);
 }
 
 // use this to call PlaneReflectEnable

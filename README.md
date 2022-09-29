@@ -1,6 +1,6 @@
 # Trackmania Menu Bg Reflections
 
-This plugin let's you modify the reflection of the car in main menu backgrounds. It's spun-off of [Menu Background Chooser](https://openplanet.dev/plugin/menu-bg-chooser).
+This plugin lets you modify the reflection of the car in main menu backgrounds. It's spun-off of [Menu Background Chooser](https://openplanet.dev/plugin/menu-bg-chooser).
 
 There are only two parameters: "opacity" and "angle". Neither is intuitive, but it's fun to mess around with nonetheless.
 
